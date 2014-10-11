@@ -11,6 +11,6 @@ public class MainActivity extends Activity
 	public void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
-	    setContentView(R.layout.form_add_spending);
+	    setContentView(R.layout.spendings_list);
 	}
 }

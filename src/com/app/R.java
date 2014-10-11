@@ -14,14 +14,17 @@ public final class R {
         public static final int Button01=0x7f040006;
         public static final int Button02=0x7f040007;
         public static final int autoCompleteTextView1=0x7f040001;
+        public static final int button1=0x7f040008;
         public static final int checkedTextView1=0x7f040000;
         public static final int checkedTextView2=0x7f040002;
         public static final int checkedTextView3=0x7f040004;
         public static final int editText1=0x7f040003;
         public static final int editText2=0x7f040005;
+        public static final int textView1=0x7f040009;
     }
     public static final class layout {
         public static final int form_add_spending=0x7f020000;
+        public static final int spendings_list=0x7f020001;
     }
     public static final class string {
         public static final int hello=0x7f030000;
