@@ -11,9 +11,6 @@ public class MainActivity extends Activity
 	public void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
-
-		TextView textView = new TextView(this);
-		textView.setText(getString(R.string.hello));
-		setContentView(textView);
+	    setContentView(R.layout.form_add_spending);
 	}
 }

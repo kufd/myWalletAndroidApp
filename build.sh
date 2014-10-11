@@ -2,7 +2,7 @@
 
 JAVA_HOME="/usr/lib/jvm/java"
 ANDROID_HOME="/home/kufd/bin/android-sdk-linux"
-DEV_HOME="/home/kufd/dev/android/test"
+DEV_HOME="./"
 
 AAPT_PATH="$ANDROID_HOME/build-tools/20.0.0/aapt"
 DX_PATH="$ANDROID_HOME/build-tools/20.0.0/dx"
