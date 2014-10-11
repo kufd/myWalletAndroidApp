@@ -9,8 +9,8 @@ DX_PATH="$ANDROID_HOME/build-tools/20.0.0/dx"
 ANDROID_JAR="$ANDROID_HOME/platforms/android-20/android.jar"
 ADB="$ANDROID_HOME/platform-tools/adb"
 
-PACKAGE_PATH="com/example/testapp"
-PACKAGE="com.example.testapp"
+PACKAGE_PATH="com/app"
+PACKAGE="com.app"
 MAIN_CLASS="MainActivity"
 
 rm -rf $DEV_HOME/bin/*
