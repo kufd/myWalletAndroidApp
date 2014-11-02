@@ -18,6 +18,8 @@ public final class R {
         public static final int checkedTextView1=0x7f040000;
         public static final int checkedTextView2=0x7f040002;
         public static final int checkedTextView3=0x7f040004;
+        public static final int dateBegin=0x7f04000a;
+        public static final int dateEnd=0x7f04000b;
         public static final int editText1=0x7f040003;
         public static final int editText2=0x7f040005;
         public static final int textView1=0x7f040009;
