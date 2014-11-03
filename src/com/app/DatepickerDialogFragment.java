@@ -19,42 +19,27 @@ public class DatepickerDialogFragment extends DialogFragment
 	protected int day;
 	protected int month;
 	protected int year;
-	private EditText field;
-	private int fieldId;
+	private DatePickerDialog.OnDateSetListener dateSetListener;
+	protected String defaultDate = null;
+	
     
 
-    public DatepickerDialogFragment(int fieldId) 
+    public DatepickerDialogFragment(DatePickerDialog.OnDateSetListener dateSetListener, String defaultDate) 
     {
-    	this.fieldId = fieldId;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) 
-    {
-    	super.onCreate(savedInstanceState);
-    	field = (EditText) getActivity().findViewById(fieldId);
-        setDefaultDate();
-    }
-    
-    protected void setDefaultDate()
-    {
-    	Calendar cal = Calendar.getInstance();
-		day = cal.get(Calendar.DAY_OF_MONTH);
-		month = cal.get(Calendar.MONTH);
-		year = cal.get(Calendar.YEAR);
+    	this.dateSetListener = dateSetListener;
+    	this.defaultDate = defaultDate;
+    	
+    	
+    	String[] dateParts = defaultDate.split("-");
+		day = Integer.parseInt(dateParts[2]);
+		month = Integer.parseInt(dateParts[1]);
+		year = Integer.parseInt(dateParts[0]);
     }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState)
     {
-    	return new DatePickerDialog(getActivity(), datePickerListener, year, month, day);
+    	return new DatePickerDialog(getActivity(), dateSetListener, year, month, day);
     }
-    
-    private DatePickerDialog.OnDateSetListener datePickerListener = new DatePickerDialog.OnDateSetListener() 
-	{
-		public void onDateSet(DatePicker view, int selectedYear, int selectedMonth, int selectedDay) 
-		{
-			field.setText(selectedYear + "-" + (selectedMonth + 1) + "-" + selectedDay);
-		}
-	};
 }
+
