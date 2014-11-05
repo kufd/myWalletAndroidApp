@@ -14,7 +14,11 @@ import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.ImageButton;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.Button;
 
 
 public class MainActivity extends Activity 
@@ -42,6 +46,15 @@ public class MainActivity extends Activity
 		fieldDateEnd.setText(dateEnd);
 		
 		initDateFieldsEvents();
+		
+		Button buttonAddSpending = (Button) findViewById(R.id.buttonAddSpending);
+		buttonAddSpending.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+            	showSpendingsList();
+            }
+        });
+		
+		showSpendingsList();
 	}
 	
 	private void initDateFieldsEvents()
@@ -90,7 +103,7 @@ public class MainActivity extends Activity
 	private DatePickerDialog.OnDateSetListener dateBeginPickerListener = new DatePickerDialog.OnDateSetListener()  {
 		public void onDateSet(DatePicker view, int selectedYear, int selectedMonth, int selectedDay) 
 		{
-			dateBegin = selectedYear + "-" + (selectedMonth+1) + "-" + selectedDay;
+			dateBegin = selectedYear + "-" + String.format("%02d", (selectedMonth+1)) + "-" + String.format("%02d", selectedDay);
 			fieldDateBegin.setText(dateBegin);
 		}
 	};
@@ -98,7 +111,7 @@ public class MainActivity extends Activity
 	private DatePickerDialog.OnDateSetListener dateEndPickerListener = new DatePickerDialog.OnDateSetListener()  {
 		public void onDateSet(DatePicker view, int selectedYear, int selectedMonth, int selectedDay) 
 		{
-			dateEnd = selectedYear + "-" + (selectedMonth+1) + "-" + selectedDay;
+			dateEnd = selectedYear + "-" + String.format("%02d", (selectedMonth+1)) + "-" + String.format("%02d", selectedDay);
 			fieldDateEnd.setText(dateEnd);
 		}
 	};
@@ -106,7 +119,7 @@ public class MainActivity extends Activity
 	private String getDefaultDateBegin()
 	{
 		Calendar cal = Calendar.getInstance();
-		return cal.get(Calendar.YEAR) + "-" + cal.get(Calendar.MONTH) + "-" + 1;
+		return cal.get(Calendar.YEAR) + "-" + String.format("%02d", (cal.get(Calendar.MONTH)+1)) + "-01";
 	}
 	
 	private String getDefaultDateEnd()
@@ -116,7 +129,23 @@ public class MainActivity extends Activity
     	cal.set(Calendar.DAY_OF_MONTH, 1);
     	cal.roll(Calendar.DAY_OF_MONTH, -1);
     	
-    	return cal.get(Calendar.YEAR) + "-" + cal.get(Calendar.MONTH) + "-" + cal.get(Calendar.DAY_OF_MONTH);
+    	return cal.get(Calendar.YEAR) + "-" + String.format("%02d", (cal.get(Calendar.MONTH)+1)) + "-" + String.format("%02d", cal.get(Calendar.DAY_OF_MONTH));
+	}
+	
+	public void showSpendingsList()
+	{
+		TableLayout table = (TableLayout)findViewById(R.id.spendingsList);
+		
+		table.removeAllViews();
+
+		for(int i=0; i<=50; i++)
+		{
+			TableRow row = new TableRow(this);
+			TextView col = new TextView(this);
+			col.setText("text test");
+			row.addView(col);
+			table.addView(row);
+		}
 	}
 	
 }

@@ -32,7 +32,7 @@ public class DatepickerDialogFragment extends DialogFragment
     	
     	String[] dateParts = defaultDate.split("-");
 		day = Integer.parseInt(dateParts[2]);
-		month = Integer.parseInt(dateParts[1]);
+		month = Integer.parseInt(dateParts[1])-1;
 		year = Integer.parseInt(dateParts[0]);
     }
 

@@ -17,7 +17,7 @@
         android:paddingBottom="10dp" >
 
         <Button
-            android:id="@+id/button1"
+            android:id="@+id/buttonAddSpending"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Додати витрату" />
@@ -78,5 +78,12 @@
         </LinearLayout>
 
     </LinearLayout>
+
+    <TableLayout
+        android:id="@+id/spendingsList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+    </TableLayout>
 
 </LinearLayout>
