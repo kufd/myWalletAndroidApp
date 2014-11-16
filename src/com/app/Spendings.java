@@ -35,17 +35,7 @@ public class Spendings
  
             // create HttpClient
         	DefaultHttpClient httpclient = new DefaultHttpClient();
-            
-        	/*
-            CredentialsProvider credProvider = new BasicCredentialsProvider();
-            credProvider.setCredentials(
-            	new AuthScope(AuthScope.ANY_HOST, AuthScope.ANY_PORT),
-                new UsernamePasswordCredentials(username, password)
-            );
-            
-            httpclient.setCredentialsProvider(credProvider);
-            */
-            
+             
             HttpGet get = new HttpGet(url);
             
             String credentials = username + ":" + password;  
