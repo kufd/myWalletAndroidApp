@@ -9,7 +9,9 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup.LayoutParams;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
 import android.widget.DatePicker;
@@ -19,6 +21,7 @@ import android.widget.ImageButton;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.Button;
+import android.app.AlertDialog;
 
 
 public class MainActivity extends Activity 
@@ -46,15 +49,17 @@ public class MainActivity extends Activity
 		fieldDateEnd.setText(dateEnd);
 		
 		initDateFieldsEvents();
-		
+				
 		Button buttonAddSpending = (Button) findViewById(R.id.buttonAddSpending);
 		buttonAddSpending.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-            	showSpendingsList();
+            	
             }
         });
 		
-		showSpendingsList();
+		
+		new SpendingsLoader(dateBegin, dateEnd, this).execute();
+		
 	}
 	
 	private void initDateFieldsEvents()
@@ -132,8 +137,15 @@ public class MainActivity extends Activity
     	return cal.get(Calendar.YEAR) + "-" + String.format("%02d", (cal.get(Calendar.MONTH)+1)) + "-" + String.format("%02d", cal.get(Calendar.DAY_OF_MONTH));
 	}
 	
-	public void showSpendingsList()
+	public void showSpendingsList(String data)
 	{
+    	
+    	new AlertDialog.Builder(this)
+        .setMessage(data)
+        .show();
+    	
+    	/*
+		
 		TableLayout table = (TableLayout)findViewById(R.id.spendingsList);
 		
 		table.removeAllViews();
@@ -141,11 +153,36 @@ public class MainActivity extends Activity
 		for(int i=0; i<=50; i++)
 		{
 			TableRow row = new TableRow(this);
-			TextView col = new TextView(this);
-			col.setText("text test");
-			row.addView(col);
+			TextView colSpendingName = new TextView(this);
+			TextView colAmount = new TextView(this);
+			TextView colDate = new TextView(this);
+			
+			colSpendingName.setText("Spending name");
+			colSpendingName.setLayoutParams(new TableRow.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, 0.5f));
+			colSpendingName.setGravity(Gravity.CENTER_VERTICAL | Gravity.LEFT);
+			colSpendingName.setTextSize(17);
+			colSpendingName.setHeight(25);
+			
+			colAmount.setText("20 грн");
+			colAmount.setLayoutParams(new TableRow.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, 0.2f));
+			colAmount.setGravity(Gravity.CENTER_VERTICAL | Gravity.LEFT);
+			colAmount.setTextSize(17);
+			colAmount.setHeight(25);
+			
+			colDate.setText("2014-08-08");
+			colDate.setLayoutParams(new TableRow.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, 0.3f));
+			colDate.setGravity(Gravity.CENTER_VERTICAL | Gravity.RIGHT);
+			colDate.setTextSize(17);
+			colDate.setHeight(25);
+			
+			
+			row.addView(colSpendingName);
+			row.addView(colAmount);
+			row.addView(colDate);
+			
 			table.addView(row);
 		}
+		*/
 	}
 	
 }
