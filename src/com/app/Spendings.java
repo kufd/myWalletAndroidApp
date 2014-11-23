@@ -14,6 +14,8 @@ import java.net.URISyntaxException;
 import java.io.InputStream;
 import org.apache.http.util.EntityUtils;
 import android.util.Base64;
+import org.json.JSONObject;
+
 
 
 
@@ -23,9 +25,9 @@ public class Spendings
 	private String username = "kufd";
 	private String password = "paralelepiped";
 	
-	public String getSpendings(String dateBegin, String dateEnd) 
+	public JSONObject getSpendings(String dateBegin, String dateEnd)
 	{
-		String result = "ok";
+		JSONObject result = null;
 		String url = apiDomain + "spendings/?dateBegin="+dateBegin+"&dateEnd="+dateEnd;
 		
 		InputStream inputStream = null;
@@ -44,17 +46,17 @@ public class Spendings
                         
             HttpResponse httpResponse = httpclient.execute(get);
    
-            result = EntityUtils.toString(httpResponse.getEntity());
+            String jsonText = EntityUtils.toString(httpResponse.getEntity());
+            
+            result = new JSONObject(jsonText);
             
         } 
         catch (Exception e) 
         {
-        	result = "ERROR: " + e.toString();
+        	
         }
  
         return result;
-
-        
 	}
 
 }

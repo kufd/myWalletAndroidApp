@@ -1,8 +1,9 @@
 package com.app;
 
 import android.os.AsyncTask; 
+import org.json.JSONObject;
 
-public class SpendingsLoader extends AsyncTask<Void, Void, String>
+public class SpendingsLoader extends AsyncTask<Void, Void, JSONObject>
 {
 	private String dateBegin;
 	private String dateEnd;
@@ -15,16 +16,16 @@ public class SpendingsLoader extends AsyncTask<Void, Void, String>
 		this.activity = activity;
 	}
 	
-	protected String doInBackground(Void... param) 
+	protected JSONObject doInBackground(Void... param) 
 	{
 		Spendings spendings = new Spendings();
     	
-    	String data = spendings.getSpendings(dateBegin, dateEnd);
+		JSONObject data = spendings.getSpendings(dateBegin, dateEnd);
     	
     	return data;
     }
 
-    protected void onPostExecute(String data) 
+    protected void onPostExecute(JSONObject data) 
     {
     	activity.showSpendingsList(data);
     }

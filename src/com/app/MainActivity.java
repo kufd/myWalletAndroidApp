@@ -3,7 +3,6 @@ package com.app;
 
 
 import java.util.Calendar;
-
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -22,7 +21,9 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.Button;
 import android.app.AlertDialog;
-
+import org.json.JSONObject;
+import org.json.JSONArray;
+import org.json.JSONException;
 
 public class MainActivity extends Activity 
 {
@@ -137,52 +138,71 @@ public class MainActivity extends Activity
     	return cal.get(Calendar.YEAR) + "-" + String.format("%02d", (cal.get(Calendar.MONTH)+1)) + "-" + String.format("%02d", cal.get(Calendar.DAY_OF_MONTH));
 	}
 	
-	public void showSpendingsList(String data)
+	public void showSpendingsList(JSONObject data)
 	{
-    	
+		/*
     	new AlertDialog.Builder(this)
-        .setMessage(data)
+        .setMessage(data.toString())
         .show();
-    	
-    	/*
-		
-		TableLayout table = (TableLayout)findViewById(R.id.spendingsList);
-		
-		table.removeAllViews();
+        */
 
-		for(int i=0; i<=50; i++)
+		try
 		{
-			TableRow row = new TableRow(this);
-			TextView colSpendingName = new TextView(this);
-			TextView colAmount = new TextView(this);
-			TextView colDate = new TextView(this);
-			
-			colSpendingName.setText("Spending name");
-			colSpendingName.setLayoutParams(new TableRow.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, 0.5f));
-			colSpendingName.setGravity(Gravity.CENTER_VERTICAL | Gravity.LEFT);
-			colSpendingName.setTextSize(17);
-			colSpendingName.setHeight(25);
-			
-			colAmount.setText("20 грн");
-			colAmount.setLayoutParams(new TableRow.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, 0.2f));
-			colAmount.setGravity(Gravity.CENTER_VERTICAL | Gravity.LEFT);
-			colAmount.setTextSize(17);
-			colAmount.setHeight(25);
-			
-			colDate.setText("2014-08-08");
-			colDate.setLayoutParams(new TableRow.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, 0.3f));
-			colDate.setGravity(Gravity.CENTER_VERTICAL | Gravity.RIGHT);
-			colDate.setTextSize(17);
-			colDate.setHeight(25);
-			
-			
-			row.addView(colSpendingName);
-			row.addView(colAmount);
-			row.addView(colDate);
-			
-			table.addView(row);
+			if(data != null)
+			{
+				JSONArray spendings = data.getJSONArray("spendings");
+				
+				TableLayout table = (TableLayout)findViewById(R.id.spendingsList);
+				
+				table.removeAllViews();
+	
+				for(int i=0; i < spendings.length(); i++)
+				{
+					String spendingName = spendings.getJSONObject(i).getString("spendingName");
+					String amount = spendings.getJSONObject(i).getString("amount");
+					String date = spendings.getJSONObject(i).getString("date");
+					
+					
+					TableRow row = new TableRow(this);
+					TextView colSpendingName = new TextView(this);
+					TextView colAmount = new TextView(this);
+					TextView colDate = new TextView(this);
+					
+					colSpendingName.setText(spendingName);
+					colSpendingName.setLayoutParams(new TableRow.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, 0.5f));
+					colSpendingName.setGravity(Gravity.CENTER_VERTICAL | Gravity.LEFT);
+					colSpendingName.setTextSize(17);
+					colSpendingName.setHeight(25);
+					colSpendingName.setWidth(90);
+					
+					colAmount.setText(amount);
+					colAmount.setLayoutParams(new TableRow.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, 0.2f));
+					colAmount.setGravity(Gravity.CENTER_VERTICAL | Gravity.LEFT);
+					colAmount.setTextSize(17);
+					colAmount.setHeight(25);
+					
+					colDate.setText(date);
+					colDate.setLayoutParams(new TableRow.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, 0.3f));
+					colDate.setGravity(Gravity.CENTER_VERTICAL | Gravity.RIGHT);
+					colDate.setTextSize(17);
+					colDate.setHeight(25);
+					
+					
+					row.addView(colSpendingName);
+					row.addView(colAmount);
+					row.addView(colDate);
+					
+					table.addView(row);
+				}
+			}
 		}
-		*/
+		catch(JSONException e)
+		{
+			new AlertDialog.Builder(this)
+	        .setMessage(e.toString())
+	        .show();
+		}
+    	
 	}
 	
 }
