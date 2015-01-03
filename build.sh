@@ -1,12 +1,12 @@
 #!/bin/sh
 
-JAVA_HOME="/usr/lib/jvm/java"
+JAVA_HOME="/usr/java/jdk1.7.0_71"
 ANDROID_HOME="/home/kufd/bin/android-sdk-linux"
 DEV_HOME="./"
 
-AAPT_PATH="$ANDROID_HOME/build-tools/20.0.0/aapt"
-DX_PATH="$ANDROID_HOME/build-tools/20.0.0/dx"
-ANDROID_JAR="$ANDROID_HOME/platforms/android-20/android.jar"
+AAPT_PATH="$ANDROID_HOME/build-tools/21.1.2/aapt"
+DX_PATH="$ANDROID_HOME/build-tools/21.1.2/dx"
+ANDROID_JAR="$ANDROID_HOME/platforms/android-21/android.jar"
 ADB="$ANDROID_HOME/platform-tools/adb"
 
 PACKAGE_PATH="com/app"

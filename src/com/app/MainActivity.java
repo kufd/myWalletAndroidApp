@@ -57,13 +57,11 @@ public class MainActivity extends Activity
             	
             }
         });
-		
-		
-		new SpendingsLoader(dateBegin, dateEnd, this).execute();
-		
+
+        loadSpendings();
 	}
-	
-	private void initDateFieldsEvents()
+
+    private void initDateFieldsEvents()
 	{
 		fieldDateBegin.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
@@ -111,6 +109,8 @@ public class MainActivity extends Activity
 		{
 			dateBegin = selectedYear + "-" + String.format("%02d", (selectedMonth+1)) + "-" + String.format("%02d", selectedDay);
 			fieldDateBegin.setText(dateBegin);
+
+            loadSpendings();
 		}
 	};
 	
@@ -119,6 +119,8 @@ public class MainActivity extends Activity
 		{
 			dateEnd = selectedYear + "-" + String.format("%02d", (selectedMonth+1)) + "-" + String.format("%02d", selectedDay);
 			fieldDateEnd.setText(dateEnd);
+
+            loadSpendings();
 		}
 	};
 	
@@ -137,72 +139,75 @@ public class MainActivity extends Activity
     	
     	return cal.get(Calendar.YEAR) + "-" + String.format("%02d", (cal.get(Calendar.MONTH)+1)) + "-" + String.format("%02d", cal.get(Calendar.DAY_OF_MONTH));
 	}
-	
+
+    private void loadSpendings()
+    {
+        new SpendingsLoader(dateBegin, dateEnd, this).execute();
+    }
+
+    public void showExceptionMessage(Exception exception)
+    {
+        new AlertDialog.Builder(this)
+                .setMessage(exception.toString())
+                .show();
+    }
+
 	public void showSpendingsList(JSONObject data)
 	{
-		/*
-    	new AlertDialog.Builder(this)
-        .setMessage(data.toString())
-        .show();
-        */
-
 		try
 		{
 			if(data != null)
 			{
 				JSONArray spendings = data.getJSONArray("spendings");
-				
+
 				TableLayout table = (TableLayout)findViewById(R.id.spendingsList);
-				
+
 				table.removeAllViews();
-	
+
 				for(int i=0; i < spendings.length(); i++)
 				{
 					String spendingName = spendings.getJSONObject(i).getString("spendingName");
 					String amount = spendings.getJSONObject(i).getString("amount");
 					String date = spendings.getJSONObject(i).getString("date");
-					
-					
+
+
 					TableRow row = new TableRow(this);
 					TextView colSpendingName = new TextView(this);
 					TextView colAmount = new TextView(this);
 					TextView colDate = new TextView(this);
-					
+
 					colSpendingName.setText(spendingName);
 					colSpendingName.setLayoutParams(new TableRow.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, 0.5f));
 					colSpendingName.setGravity(Gravity.CENTER_VERTICAL | Gravity.LEFT);
 					colSpendingName.setTextSize(17);
 					colSpendingName.setHeight(25);
 					colSpendingName.setWidth(90);
-					
+
 					colAmount.setText(amount);
 					colAmount.setLayoutParams(new TableRow.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, 0.2f));
 					colAmount.setGravity(Gravity.CENTER_VERTICAL | Gravity.LEFT);
 					colAmount.setTextSize(17);
 					colAmount.setHeight(25);
-					
+
 					colDate.setText(date);
 					colDate.setLayoutParams(new TableRow.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, 0.3f));
 					colDate.setGravity(Gravity.CENTER_VERTICAL | Gravity.RIGHT);
 					colDate.setTextSize(17);
 					colDate.setHeight(25);
-					
-					
+
+
 					row.addView(colSpendingName);
 					row.addView(colAmount);
 					row.addView(colDate);
-					
+
 					table.addView(row);
 				}
 			}
 		}
 		catch(JSONException e)
 		{
-			new AlertDialog.Builder(this)
-	        .setMessage(e.toString())
-	        .show();
+            this.showExceptionMessage(e);
 		}
-    	
 	}
 	
 }
